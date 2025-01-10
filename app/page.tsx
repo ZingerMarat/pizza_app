@@ -15,8 +15,10 @@ export default function Home() {
       <Container className="mt-5">
         <Title text="All pizzas" size="lg" className="font=extrabold"></Title>
       </Container>
+
       <TopBar />
-      <Container className="pb-14">
+
+      <Container className="mt-10 pb-14">
         <div className="flex gap-[60px]">
           {/*Filter*/}
           <div className="w-[250px]">
