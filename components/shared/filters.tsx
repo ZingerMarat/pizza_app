@@ -1,16 +1,21 @@
-import React from "react";
+"use client";
+import React, { use } from "react";
 import { Title } from "./title";
 import { FilterCheckbox } from "./filter-checkbox";
 import { Input } from "../ui";
 import { RangeSlider } from "./range-slider";
 import { Check } from "lucide-react";
 import { CheckboxFiltersGroup } from "./checkbox-filters-group";
+import { useFilterIngredients } from "@/hooks/useFilterIngredients";
 
 interface Props {
   className?: string;
 }
 
 export const Filters: React.FC<Props> = ({ className }) => {
+  const { ingredients, loading } = useFilterIngredients();
+  const items = ingredients.map((ingredient) => ({ text: ingredient.name, value: ingredient.id.toString() }));
+
   return (
     <div className={className}>
       <Title text="Filters" size="sm" className="font-bold mb-5" />
@@ -32,63 +37,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
       </div>
 
       {/* Ingredients filter*/}
-      <CheckboxFiltersGroup
-        title="Ingredients"
-        className="mt-5"
-        limit={2}
-        defaultItems={[
-          {
-            text: "Сырный соус",
-            value: "1",
-          },
-          {
-            text: "Моццарелла",
-            value: "2",
-          },
-          {
-            text: "Чеснок",
-            value: "3",
-          },
-          {
-            text: "Солённые огурчики",
-            value: "4",
-          },
-          {
-            text: "Красный лук",
-            value: "5",
-          },
-          {
-            text: "Томаты",
-            value: "6",
-          },
-        ]}
-        items={[
-          {
-            text: "Сырный соус",
-            value: "1",
-          },
-          {
-            text: "Моццарелла",
-            value: "2",
-          },
-          {
-            text: "Чеснок",
-            value: "3",
-          },
-          {
-            text: "Солённые огурчики",
-            value: "4",
-          },
-          {
-            text: "Красный лук",
-            value: "5",
-          },
-          {
-            text: "Томаты",
-            value: "6",
-          },
-        ]}
-      />
+      <CheckboxFiltersGroup title="Ingredients" className="mt-5" limit={6} defaultItems={items.slice(0, 6)} items={items} loading={loading} />
     </div>
   );
 };
