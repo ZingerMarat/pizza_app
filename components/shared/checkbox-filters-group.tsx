@@ -10,18 +10,18 @@ type Item = FilterCheckboxProps;
 interface Props {
   title: string;
   items: Item[];
-  defaultItems: Item[];
+  defaultItems?: Item[];
   limit?: number;
   loading?: boolean;
   searchInputPlaceholder?: string;
   onClickCheckbox?: (id: string) => void;
-  selectedIds?: Set<string>;
+  selected?: Set<string>;
   defaultValue?: string[];
   className?: string;
   name?: string;
 }
 
-export const CheckboxFiltersGroup: React.FC<Props> = ({ title, items, defaultItems, limit = 5, searchInputPlaceholder = "Search...", className, onClickCheckbox, defaultValue, loading, selectedIds, name }) => {
+export const CheckboxFiltersGroup: React.FC<Props> = ({ title, items, defaultItems, limit = 5, searchInputPlaceholder = "Search...", className, onClickCheckbox, defaultValue, loading, selected, name }) => {
   const [showAll, setShowAll] = useState(false);
 
   const [searchValue, setSearchValue] = useState("");
@@ -41,7 +41,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({ title, items, defaultIte
     );
   }
 
-  const list = showAll ? items.filter((item) => item.text.toLowerCase().includes(searchValue.toLowerCase())) : defaultItems.slice(0, limit);
+  const list = showAll ? items.filter((item) => item.text.toLowerCase().includes(searchValue.toLowerCase())) : (defaultItems || items).slice(0, limit);
 
   return (
     <div className={className}>
@@ -56,7 +56,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({ title, items, defaultIte
       <div className="flex flex-col gap-4 max-h-96 pr-2 overflow-auto scrollbar">
         {list.map((item, index) => {
           const checked = defaultValue?.includes(item.value);
-          return <FilterCheckbox onCheckedChange={() => onClickCheckbox?.(item.value)} checked={selectedIds?.has(item.value)} key={index} value={item.value} text={item.text} endAdornment={item.endAdornment} name={name} />;
+          return <FilterCheckbox onCheckedChange={() => onClickCheckbox?.(item.value)} checked={selected?.has(item.value)} key={index} value={item.value} text={item.text} endAdornment={item.endAdornment} name={name} />;
         })}
       </div>
 
