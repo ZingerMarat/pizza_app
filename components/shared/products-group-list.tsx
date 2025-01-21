@@ -12,17 +12,17 @@ interface Props {
   items: any[];
   className?: string;
   listClassName?: string;
-  categoryId: string;
+  categoryId: number;
 }
 
 export const ProductsGroupList: React.FC<Props> = ({ title, items, className, listClassName, categoryId }) => {
   const setActiveCategoryId = useCategoryStore((state) => state.setActiveId);
   const intersectionRef = React.useRef(null);
-  const intersection = useIntersection(intersectionRef, { threshold: 0.5 });
+  const intersection = useIntersection(intersectionRef, { threshold: 0.6 });
 
   React.useEffect(() => {
     if (intersection?.isIntersecting) {
-      setActiveCategoryId(parseInt(categoryId));
+      setActiveCategoryId(categoryId);
     }
   }, [categoryId, intersection?.isIntersecting, title]);
 
@@ -32,7 +32,7 @@ export const ProductsGroupList: React.FC<Props> = ({ title, items, className, li
 
       <div className={cn("grid grid-cols-3 gap-[50px]", listClassName)}>
         {items.map((product, i) => (
-          <ProductCard key={product.id} id={product.id} name={product.name} imageUrl={product.imageUrl} price={product.items[0].price} />
+          <ProductCard key={product.id} id={product.id} name={product.name} imageUrl={product.imageUrl} price={product.items[0].price} ingredients={product.ingredients} />
         ))}
       </div>
     </div>
