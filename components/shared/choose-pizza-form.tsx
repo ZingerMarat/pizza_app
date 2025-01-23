@@ -1,25 +1,27 @@
 import { cn } from "@/lib/utils";
 import { Pizza } from "lucide-react";
 import React from "react";
+import { PizzaImage } from "./pizza-image";
 import { Title } from "./title";
 import { Button } from "../ui";
 
 interface Props {
   imageUrl: string;
   name: string;
+  ingredients: any[];
+  items: any[];
   onClickAdd?: VoidFunction;
   className?: string;
 }
 
-export const ChooseProductForm: React.FC<Props> = ({ name, imageUrl, onClickAdd, className }) => {
+export const ChoosePizzaForm: React.FC<Props> = ({ name, items, imageUrl, ingredients, onClickAdd, className }) => {
   const textDetails = "some information about the product";
   const totalPrice = 99;
+  const size = 30;
 
   return (
     <div className={cn(className, "flex flex-1")}>
-      <div className="flex items-center justify-center flex-1 relative w-full">
-        <img src={imageUrl} alt={name} className="relative left-2 top-2 transition-all z-10 duration-300 w-[350px] h-[350px]" />
-      </div>
+      <PizzaImage imageUrl={imageUrl} size={size} />
 
       <div className="w-[490px] bg-[#FCFCFC] p-7">
         <Title text={name} size="md" className="font-extrabold mb-1" />
