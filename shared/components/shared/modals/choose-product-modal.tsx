@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { ChooseProductForm } from "../choose-product-form";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/shared/components/ui/dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { ProductWithRelations } from "@/@types/prisma";
 import { ChoosePizzaForm } from "../choose-pizza-form";
@@ -20,11 +20,11 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className }) => {
 
   return (
     <Dialog open={Boolean(product)} onOpenChange={() => router.back()}>
-      <DialogContent className={cn("p-0 w-[1060px] max-w-[1060px] min-h-[500px] bg-white overflow-hidden", className)}>
+      <DialogContent className={cn("p-0 w-[1060px] max-w-[1060px] min-h-[500px] bg-white overflow-hidden", className)} aria-describedby={undefined}>
         <VisuallyHidden>
           <DialogTitle>{product.name}</DialogTitle>
         </VisuallyHidden>
-        {isPizzaForm ? <ChoosePizzaForm imageUrl={product.imageUrl} name={product.name} ingredients={[]} items={[]} /> : <ChooseProductForm imageUrl={product.imageUrl} name={product.name} />}
+        {isPizzaForm ? <ChoosePizzaForm imageUrl={product.imageUrl} name={product.name} ingredients={product.ingredients} items={product.items} /> : <ChooseProductForm imageUrl={product.imageUrl} name={product.name} />}
       </DialogContent>
     </Dialog>
   );
