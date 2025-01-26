@@ -2,17 +2,7 @@ import { error } from "console";
 import { Api } from "../services/api-client";
 import { getCartDetails } from "../lib";
 import { create } from "zustand";
-
-export type CartStateItem = {
-    id: number;
-    quantity: number;
-    name: string;
-    imageUrl: string;
-    price: number;
-    pizzaSize?: number | null;
-    type?: number | null;
-    ingredients: Array<{name: string, price: number}>;
-}
+import { CartStateItem } from "../lib/get-cart-details";
 
 export interface CartState {
     loading: boolean;

@@ -8,6 +8,7 @@ export type CartStateItem = {
     name: string;
     imageUrl: string;
     price: number;
+    disabled?: boolean;
     pizzaSize?: number | null;
     pizzaType?: number | null;
     ingredients: Array<{name: string, price: number}>;
