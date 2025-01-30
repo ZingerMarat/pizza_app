@@ -17,11 +17,12 @@ interface Props {
   name: string;
   ingredients: Ingredient[];
   items: ProductItem[];
+  loading?: boolean;
   onSubmit: (itemId: number, ingredients: number[]) => void;
   className?: string;
 }
 
-export const ChoosePizzaForm: React.FC<Props> = ({ name, items, imageUrl, ingredients, onSubmit, className }) => {
+export const ChoosePizzaForm: React.FC<Props> = ({ name, items, imageUrl, ingredients, loading, onSubmit, className }) => {
   const { size, type, selectedIngredients, availableSizes, currentItemId, setSize, setType, addIngredient } = usePizzaOptions(items);
 
   const { totalPrice, textDetails } = getPizzaDetails(items, ingredients, size, type, selectedIngredients);
@@ -56,7 +57,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({ name, items, imageUrl, ingred
           </div>
         </div>
 
-        <Button className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10" onClick={handleClickAdd}>
+        <Button className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10" loading={loading} onClick={handleClickAdd}>
           Add to cart for {totalPrice} $
         </Button>
       </div>
