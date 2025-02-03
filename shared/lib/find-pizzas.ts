@@ -15,12 +15,24 @@ const DEFAULT_MAX_PRICE = 100;
 
 export const findPizzas = async (params: GetSearchParams) => {
 
-    const sizes = params.sizes?.split(",").map(Number);
-    const pizzaTypes = params.pizzaTypes?.split(",").map(Number);
-    const ingredientsArr = params.ingredients?.split(",").map(Number);
+    const sizes =
+    params.sizes && typeof params.sizes === "string"
+      ? params.sizes.split(",").map(Number).filter(Number.isFinite)
+      : undefined;
 
-    const minPrice = params.priceFrom ? Number(params.priceFrom) : DEFAULT_MIN_PRICE;
-    const maxPrice = params.priceTo ? Number(params.priceTo) : DEFAULT_MAX_PRICE;
+  const pizzaTypes =
+    params.pizzaTypes && typeof params.pizzaTypes === "string"
+      ? params.pizzaTypes.split(",").map(Number).filter(Number.isFinite)
+      : undefined;
+
+  const ingredientsArr =
+    params.ingredients && typeof params.ingredients === "string"
+      ? params.ingredients.split(",").map(Number).filter(Number.isFinite)
+      : undefined;
+
+  const minPrice = params.priceFrom ? Number(params.priceFrom) : DEFAULT_MIN_PRICE;
+  const maxPrice = params.priceTo ? Number(params.priceTo) : DEFAULT_MAX_PRICE;
+
 
     const categories = await prisma.category.findMany({
     include: {
