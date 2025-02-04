@@ -50,6 +50,7 @@ export const CartDrawer: React.FC<PropsWithChildren<Props>> = ({ children, class
             <div key={item.id} className="mb-2">
               <CartDrawerItem
                 id={item.id}
+                disabled={item.disabled}
                 imageUrl={item.imageUrl}
                 name={item.name}
                 price={item.price}
