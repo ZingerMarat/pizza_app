@@ -9,10 +9,9 @@ import { ChooseProductForm } from "./choose-product-form";
 
 interface Props {
   product: ProductWithRelations;
-  className?: string;
 }
 
-export const ProductForm: React.FC<Props> = ({ product, className }) => {
+export const ProductForm: React.FC<Props> = ({ product }) => {
   const addCartItem = useCartStore((state) => state.addCartItem);
   const loading = useCartStore((state) => state.loading);
 
