@@ -29,13 +29,18 @@ export const findPizzas = async (params: GetSearchParams) => {
         products: { orderBy: {id: 'desc'},
                     where: {ingredients : ingredientsArr ? { some: { id: { in: ingredientsArr } } } : undefined,
                             items: { some: {    size: { in: sizes },
-                                                pizzaType: { in: pizzaTypes }, },
+                                                pizzaType: { in: pizzaTypes }, 
+                                                price: { gte: minPrice, lte: maxPrice},
+                                            },
                             
 
                                     }
                             },
                     include: {  ingredients: true,
-                                items: true, },
+                                items: {
+                                    orderBy: { price: 'asc' },
+                                    where: { price: { gte: minPrice, lte: maxPrice } },
+                                }, },
                 },
     },
     });
