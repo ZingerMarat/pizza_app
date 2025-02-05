@@ -1,4 +1,4 @@
-import { CheckoutItemDetails, Container, Title, WhiteBlock } from "@/shared/components/shared";
+import { CheckoutItem, CheckoutItemDetails, Container, Title, WhiteBlock } from "@/shared/components/shared";
 import { Button, Input, Textarea } from "@/shared/components/ui";
 import { ArrowRight, Package, Percent, Truck } from "lucide-react";
 
@@ -10,7 +10,12 @@ export default function CheckoutPage() {
       <div className="flex gap-10">
         {/* Left side */}
         <div className="flex flex-col gap-10 flex-1 mb-20">
-          <WhiteBlock title="Cart"></WhiteBlock>
+          <WhiteBlock title="Cart">
+            <div className="flex flex-col gap-5">
+              <CheckoutItem id={0} imageUrl={""} details={""} name={""} price={0} quantity={0} />
+              <CheckoutItem id={0} imageUrl={""} details={""} name={""} price={0} quantity={0} />
+            </div>
+          </WhiteBlock>
 
           <WhiteBlock title="Personal information">
             <div className="grid grid-cols-2 gap-5">
