@@ -1,8 +1,20 @@
+"use client";
+
 import { CheckoutItem, CheckoutItemDetails, Container, Title, WhiteBlock } from "@/shared/components/shared";
 import { Button, Input, Textarea } from "@/shared/components/ui";
+import { PizzaSize, PizzaType } from "@/shared/constants/pizza";
+import { useCart } from "@/shared/hooks";
+import { getCartItemDetails } from "@/shared/lib";
 import { ArrowRight, Package, Percent, Truck } from "lucide-react";
 
 export default function CheckoutPage() {
+  const { totalAmount, items, updateItemQuantity, removeCartItem } = useCart();
+
+  const onClickCountButton = (id: number, quantity: number, type: "plus" | "minus") => {
+    const newQuantity = type === "plus" ? quantity + 1 : quantity - 1;
+    updateItemQuantity(id, newQuantity);
+  };
+
   return (
     <Container className="mt-10">
       <Title text="Checkout" size="lg" className="font-extrabold mb-8" />
@@ -12,8 +24,20 @@ export default function CheckoutPage() {
         <div className="flex flex-col gap-10 flex-1 mb-20">
           <WhiteBlock title="Cart">
             <div className="flex flex-col gap-5">
-              <CheckoutItem id={0} imageUrl={""} details={""} name={""} price={0} quantity={0} />
-              <CheckoutItem id={0} imageUrl={""} details={""} name={""} price={0} quantity={0} />
+              {items.map((item) => (
+                <CheckoutItem
+                  key={item.id}
+                  id={item.id}
+                  imageUrl={item.imageUrl}
+                  details={item.pizzaSize && item.pizzaType ? getCartItemDetails(item.ingredients, item.pizzaType as PizzaType, item.pizzaSize as PizzaSize) : ""}
+                  disabled={item.disabled}
+                  name={item.name}
+                  price={item.price}
+                  quantity={item.quantity}
+                  onClickCountButton={(type) => onClickCountButton(item.id, item.quantity, type)}
+                  onClickRemove={() => removeCartItem(item.id)}
+                />
+              ))}
             </div>
           </WhiteBlock>
 
@@ -39,7 +63,7 @@ export default function CheckoutPage() {
           <WhiteBlock className="p-6 sticky top-4">
             <div className="flex flex-col gap-1">
               <span className="text-xl">Total:</span>
-              <span className="text-[34px] font-extrabold">10$</span>
+              <span className="text-[34px] font-extrabold">{totalAmount} $</span>
             </div>
 
             <CheckoutItemDetails

@@ -12,26 +12,16 @@ import { PizzaSize, PizzaType } from "@/shared/constants/pizza";
 import { Title } from "./title";
 import { Button } from "../ui";
 import { cn } from "@/shared/lib/utils";
+import { useCart } from "@/shared/hooks";
 
-interface Props {
-  className?: string;
-}
-
-export const CartDrawer: React.FC<PropsWithChildren<Props>> = ({ children, className }) => {
-  const totalAmount = useCartStore((state) => state.totalAmount);
-  const items = useCartStore((state) => state.items);
-  const fetchCartItems = useCartStore((state) => state.fetchCartItems);
-  const updateItemQuantity = useCartStore((state) => state.updateItemQuantity);
-  const removeCartItem = useCartStore((state) => state.removeCartItem);
+export const CartDrawer: React.FC<PropsWithChildren> = ({ children }) => {
+  const { totalAmount, items, updateItemQuantity, removeCartItem } = useCart();
+  const [redirecting, setRedirecting] = React.useState(false);
 
   const onClickCountButton = (id: number, quantity: number, type: "plus" | "minus") => {
     const newQuantity = type === "plus" ? quantity + 1 : quantity - 1;
     updateItemQuantity(id, newQuantity);
   };
-
-  React.useEffect(() => {
-    fetchCartItems();
-  }, [fetchCartItems]);
 
   return (
     <Sheet>
@@ -96,9 +86,15 @@ export const CartDrawer: React.FC<PropsWithChildren<Props>> = ({ children, class
                     <span className="font-bold text-lg">{totalAmount} $</span>
                   </div>
 
-                  <Link href="/card">
-                    <Button type="submit" className="w-full h-12 text-base">
-                      {" "}
+                  <Link href="/checkout">
+                    <Button
+                      loading={redirecting}
+                      onClick={() => {
+                        setRedirecting(true);
+                      }}
+                      type="submit"
+                      className="w-full h-12 text-base"
+                    >
                       Order
                       <ArrowRight className="w-5 ml-2" />
                     </Button>
