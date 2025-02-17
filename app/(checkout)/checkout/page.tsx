@@ -7,12 +7,13 @@ import { useForm, SubmitHandler, Form, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckoutAddressForm, CheckoutCart, CheckoutPersonalForm } from "@/shared/components/shared/checkout";
 import { checkoutFormSchema, CheckoutFormValues } from "@/shared/constants/checkout-form-schema";
+import { cn } from "@/shared/lib/utils";
 
 const VAT = 18;
 const DELIVERY_PRICE = 15;
 
 export default function CheckoutPage() {
-  const { totalAmount, items, updateItemQuantity, removeCartItem } = useCart();
+  const { totalAmount, items, updateItemQuantity, removeCartItem, loading } = useCart();
 
   const form = useForm<CheckoutFormValues>({
     resolver: zodResolver(checkoutFormSchema),
@@ -47,16 +48,16 @@ export default function CheckoutPage() {
           <div className="flex gap-10">
             {/* Left side */}
             <div className="flex flex-col gap-10 flex-1 mb-20">
-              <CheckoutCart items={items} onClickCountButton={onClickCountButton} removeCartItem={removeCartItem} />
+              <CheckoutCart items={items} onClickCountButton={onClickCountButton} removeCartItem={removeCartItem} loading={loading}/>
 
-              <CheckoutPersonalForm />
+              <CheckoutPersonalForm className={cn({'opacity-40 pointer-events-none' : loading})}/>
 
-              <CheckoutAddressForm />
+              <CheckoutAddressForm className={cn({'opacity-40 pointer-events-none' : loading})}/>
             </div>
 
             {/* Right side */}
             <div className="w-[450px]">
-              <CheckoutSidebar totalAmount={totalAmount} />
+              <CheckoutSidebar totalAmount={totalAmount} loading={loading}/>
             </div>
           </div>
         </form>

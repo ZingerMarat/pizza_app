@@ -4,7 +4,7 @@ import { Input } from '../../ui';
 import { FormInput } from '../form';
 
 interface Props {
-    className?: string;
+  className?: string;
 }
 
 export const CheckoutPersonalForm: React.FC<Props> = ({ className }) => {
