@@ -36,7 +36,7 @@ export default function CheckoutPage() {
       setSubmitting(true)
       const url = await createOrder(data);
 
-      toast.error("Order created successfully. Redirecting to payment page");
+      toast.success("Order created successfully. Redirecting to payment page");
 
       if(url){
         location.href = url
