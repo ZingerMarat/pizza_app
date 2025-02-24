@@ -3,7 +3,7 @@ import { Nunito } from "next/font/google";
 import { Header } from "@/shared/components/shared/header";
 
 export const metadata: Metadata = {
-  title: "Zinger Pizza | Main Page",
+  title: "Next Pizza | Main Page",
 };
 
 export default function HomeLayout({

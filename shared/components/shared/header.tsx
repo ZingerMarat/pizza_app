@@ -9,8 +9,10 @@ import { User } from "lucide-react";
 import Link from "next/link";
 import { SearchInput } from "./search-input";
 import { CartButton } from "./cart-button";
-import { useSearchParams } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
+import { useSession, signIn } from "next-auth/react";
+import { ProfileButton } from "./profile-button";
 
 interface Props {
   hasSearch?: boolean;
@@ -51,10 +53,10 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
 
         {/* Right side */}
         <div className="flex items-center gap-3">
-          <Button variant="outline" className="flex items-center gap-3">
-            <User size={16} />
-            Log In
-          </Button>
+        <ProfileButton />
+
+
+
           {hasCart && (
             <div>
               <CartButton />

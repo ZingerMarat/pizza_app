@@ -24,6 +24,8 @@ export { CheckoutSidebar } from './checkout-sidebar'
 export { ErrorText } from './error-text'
 export { RequiredSymbol } from './required-symbol'
 export { ClearButton } from './clear-button'
+export { Providers} from './providers'
+export { ProfileButton } from './profile-button'
 
 export * from './email-templates'
 export * from './form'
