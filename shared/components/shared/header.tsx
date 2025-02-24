@@ -13,6 +13,7 @@ import { redirect, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { useSession, signIn } from "next-auth/react";
 import { ProfileButton } from "./profile-button";
+import { AuthModal } from "./modals";
 
 interface Props {
   hasSearch?: boolean;
@@ -21,14 +22,16 @@ interface Props {
 }
 
 export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, className }) => {
+  const [openAuthModal, setOpenAuthModal] = React.useState(false);
   const searchParams = useSearchParams();
 
   React.useEffect(() => {
-    if (searchParams.has('paid')) {
+    if (searchParams.has("paid")) {
       setTimeout(() => {
-      toast.success("Order payed successfully");
+        toast.success("Order payed successfully");
       }, 500);
-  }}, []);
+    }
+  }, []);
 
   return (
     <header className={cn("border-b", className)}>
@@ -53,9 +56,8 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
 
         {/* Right side */}
         <div className="flex items-center gap-3">
-        <ProfileButton />
-
-
+          <AuthModal open={openAuthModal} onClose={() => setOpenAuthModal(false)} />
+          <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
 
           {hasCart && (
             <div>
