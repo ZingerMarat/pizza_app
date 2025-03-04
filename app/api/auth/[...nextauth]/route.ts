@@ -12,6 +12,7 @@ export const authOptions = {
             clientId: process.env.GITHUB_ID || '',
             clientSecret: process.env.GITHUB_SECRET || '',
         }),
+        
         CredentialsProvider({
             name: 'Credentials',
             credentials: {
@@ -37,6 +38,10 @@ export const authOptions = {
 
                 const isPasswordValid = await compare(credentials.password, findUser.password)
 
+                if (!isPasswordValid) {
+                    return null
+                }
+
                 if (!findUser.verified) {
                     return null
                 }
@@ -49,7 +54,30 @@ export const authOptions = {
     session: {
         strategy: "jwt",
     },
-    //TODO: Add JWT secret
+    callbacks: {
+        async jwt({token}) {
+            const findUser = await prisma.user.findFirst({
+                where: { email: token.email }
+            });
+
+            if (findUser) {
+                token.id = String(findUser.id)
+                token.email = findUser.email
+                token.name = findUser.fullName
+                token.role = findUser.role
+            }
+
+            return token;
+        },
+        session({session, token}) {
+            if (session?.user){
+                session.user.id = token.id
+                session.user.role = token.role
+            }
+
+            return session;
+        }
+    }
 }
 
 

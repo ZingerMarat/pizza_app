@@ -34,9 +34,11 @@ export const LoginForm: React.FC<Props> = ({ onClose, className }) => {
       }
 
       onClose?.();
+
       toast.success("LogIn success", {
         icon: "🚀",
       });
+
     } catch (error) {
       console.error("Error [LOGIN]", error);
       toast.error("LogIn error", {
@@ -53,7 +55,6 @@ export const LoginForm: React.FC<Props> = ({ onClose, className }) => {
             <Title text="SignIn" size="md" className="font-bold" />
             <p className="text-gray-400">Please enter your email for sign in</p>
           </div>
-          <img src="/assets/images/phone-icon.png" alt="phone-icon" width={60} height={60} />
         </div>
 
         <FormInput name="email" label="Email" type="email" placeholder="Enter your email" required />
