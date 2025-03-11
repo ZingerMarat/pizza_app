@@ -26,6 +26,7 @@ export { RequiredSymbol } from './required-symbol'
 export { ClearButton } from './clear-button'
 export { Providers} from './providers'
 export { ProfileButton } from './profile-button'
+export { InfoBlock } from './info-block'
 
 export * from './email-templates'
 export * from './form'
