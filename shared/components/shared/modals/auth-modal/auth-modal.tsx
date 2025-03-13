@@ -4,6 +4,7 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { signIn } from "next-auth/react";
 import React from "react";
 import { LoginForm } from "./forms/login-form";
+import { RegisterForm } from "./forms/register-from";
 
 interface Props {
   open: boolean;
@@ -15,8 +16,7 @@ export const AuthModal: React.FC<Props> = ({ open, onClose }) => {
 
   const onSwitchType = () => {
     setType(type === "login" ? "register" : "login");
-  }
-
+  };
 
   const handleClose = () => {
     onClose();
@@ -28,10 +28,7 @@ export const AuthModal: React.FC<Props> = ({ open, onClose }) => {
         <VisuallyHidden>
           <DialogTitle></DialogTitle>
         </VisuallyHidden>
-        {
-          type === 'login' ? <LoginForm onClose={handleClose} /> : <h1>Register</h1>
-        }
-
+        {type === "login" ? <LoginForm onClose={handleClose} /> : <RegisterForm onClose={handleClose} />}
         <hr />
         <div className="flex gap-2">
           <Button
@@ -58,9 +55,8 @@ export const AuthModal: React.FC<Props> = ({ open, onClose }) => {
             Google
           </Button>
         </div>
-
         <Button variant="outline" onClick={onSwitchType} className="h-12">
-          {type !== 'login' ? 'Login' : 'Register'}
+          {type !== "login" ? "Login" : "Register"}
         </Button>
       </DialogContent>
     </Dialog>
