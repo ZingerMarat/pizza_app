@@ -7,22 +7,6 @@ import { UserRole } from "@prisma/client";
 import type { Account, Session, User } from "next-auth";
 import type { JWT } from "next-auth/jwt";
 
-declare module "next-auth" {
-  interface Session {
-    user: {
-      id: string;
-      email: string;
-      name: string;
-      role: UserRole;
-    };
-  }
-
-  interface User {
-    id: string;
-    role: UserRole;
-  }
-}
-
 export const authOptions: NextAuthOptions = {
   providers: [
     GitHubProvider({
@@ -70,7 +54,7 @@ export const authOptions: NextAuthOptions = {
 
         console.log("[AUTHORIZE] Successful login for:", findUser.email);
         return {
-          id: String(findUser.id),
+          id: findUser.id,
           email: findUser.email,
           name: findUser.fullName,
           role: findUser.role,
@@ -85,7 +69,7 @@ export const authOptions: NextAuthOptions = {
   },
 
   callbacks: {
-    async signIn({ user, account }: { user: User; account: Account | null }) {
+    async signIn({ user, account }) {
       try {
         console.log("[SIGNIN] user:", user, "account:", account);
         if (account?.provider === "credentials") {
