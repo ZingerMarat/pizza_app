@@ -7,7 +7,6 @@ import { updateCartTotalAmount } from "@/shared/lib";
 
 export async function GET(req: NextRequest) {
     try {
-        const userId = 1;
         const token = req.cookies.get('cartToken')?.value;
 
         if (!token) {

@@ -1,9 +1,9 @@
 "use client";
 
-import { CheckoutSidebar, Container, Title, WhiteBlock } from "@/shared/components/shared";
+import { CheckoutSidebar, Container, Title } from "@/shared/components/shared";
 import { useCart } from "@/shared/hooks";
 
-import { useForm, SubmitHandler, Form, FormProvider } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckoutAddressForm, CheckoutCart, CheckoutPersonalForm } from "@/shared/components/shared/checkout";
 import { checkoutFormSchema, CheckoutFormValues } from "@/shared/constants/checkout-form-schema";
@@ -13,7 +13,7 @@ import toast from "react-hot-toast";
 import { useState } from "react";
 
 const VAT = 18;
-const DELIVERY_PRICE = 15;
+//const DELIVERY_PRICE = 15;
 
 export default function CheckoutPage() {
   const { totalAmount, items, updateItemQuantity, removeCartItem, loading } = useCart();
@@ -56,7 +56,7 @@ export default function CheckoutPage() {
   };
 
   const vatPrice = (totalAmount * VAT) / 100;
-  const subtotalPrice = totalAmount - vatPrice;
+  //const subtotalPrice = totalAmount - vatPrice;
 
   return (
     <Container className="mt-10">

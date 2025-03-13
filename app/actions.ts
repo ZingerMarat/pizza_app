@@ -186,6 +186,6 @@ export async function registerUser(body: Prisma.UserCreateInput){
 
 
     } catch (err) {
-
+        console.log('[RegisterUser] Server error', err);
     }
 }
