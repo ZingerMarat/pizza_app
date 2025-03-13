@@ -17,8 +17,9 @@ interface Props {
 
 export const ProductsGroupList: React.FC<Props> = ({ title, items, className, listClassName, categoryId }) => {
   const setActiveCategoryId = useCategoryStore((state) => state.setActiveId);
-  const intersectionRef = React.useRef<HTMLDivElement | null>(null);
-const intersection = useIntersection(intersectionRef, { threshold: 0.6 });
+  const intersectionRef = React.useRef<HTMLDivElement>(null);
+  const intersection = useIntersection(intersectionRef as React.RefObject<HTMLElement>, { threshold: 0.6 });
+  
 
   React.useEffect(() => {
     if (intersection?.isIntersecting) {
