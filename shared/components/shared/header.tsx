@@ -9,7 +9,7 @@ import { User } from "lucide-react";
 import Link from "next/link";
 import { SearchInput } from "./search-input";
 import { CartButton } from "./cart-button";
-import { redirect, useSearchParams } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { useSession, signIn } from "next-auth/react";
 import { ProfileButton } from "./profile-button";
@@ -24,11 +24,20 @@ interface Props {
 export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, className }) => {
   const [openAuthModal, setOpenAuthModal] = React.useState(false);
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   React.useEffect(() => {
     if (searchParams.has("paid")) {
       setTimeout(() => {
+        router.replace("/");
         toast.success("Order payed successfully");
+      }, 500);
+    }
+
+    if (searchParams.has("verified")) {
+      setTimeout(() => {
+        router.replace("/");
+        toast.success("Email verified successfully");
       }, 500);
     }
   }, []);

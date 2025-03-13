@@ -9,6 +9,7 @@ import { cookies } from "next/headers";
 import { createPayment, sendEmail } from '@/shared/lib';
 import { getUserSession } from '@/shared/lib/get-user-session';
 import { hashSync } from 'bcrypt';
+import { VerificationUserTemplate } from '@/shared/components/shared/email-templates/verification-user';
 
 export async function createOrder(data: CheckoutFormValues){
     try{
@@ -139,5 +140,52 @@ export async function updateUserInfo(body: Prisma.UserUpdateInput){
     } catch (err) {
         console.log('[UpdateUserInfo] Server error', err);
         throw err;
+    }
+}
+
+export async function registerUser(body: Prisma.UserCreateInput){
+    try{
+        const user = await prisma.user.findFirst({
+            where: {
+                email: body.email
+            }
+        })
+
+        if(user){
+            if (!user.verified){
+                throw new Error('User not verified');
+            }
+
+            throw new Error('User already exists');
+        }
+
+        const createUser = await prisma.user.create({
+            data: {
+                email: body.email,
+                fullName: body.fullName,
+                password: hashSync(body.password as string, 10),
+            }
+        });
+
+        const code = Math.floor(100000 + Math.random() * 900000).toString();
+
+        await prisma.verificationCode.create({
+            data: {
+                code,
+                userId: createUser.id
+            }
+        });
+
+
+        const VerificationUserT = await VerificationUserTemplate({code: code});
+        await sendEmail(
+            createUser.email,
+            'Next Pizza | Verify your email',
+            VerificationUserT
+        )
+
+
+    } catch (err) {
+
     }
 }

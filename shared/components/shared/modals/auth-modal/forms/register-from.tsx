@@ -1,12 +1,12 @@
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { formLoginSchema, formRegisterSchema, TFormLoginValues, TFormRegisterValues } from "./schemas";
+import { formRegisterSchema, TFormRegisterValues } from "./schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Title } from "../../../title";
 import { FormInput } from "../../../form";
 import { Button } from "@/shared/components/ui";
 import toast from "react-hot-toast";
 import { signIn } from "next-auth/react";
+import { registerUser } from "@/app/actions";
 
 interface Props {
   onClose?: VoidFunction;
@@ -24,20 +24,17 @@ export const RegisterForm: React.FC<Props> = ({ onClose, className }) => {
     resolver: zodResolver(formRegisterSchema),
   });
 
-  const onSubmit = async (data: TFormLoginValues) => {
+  const onSubmit = async (data: TFormRegisterValues) => {
     try {
-      const resp = await signIn("credentials", {
-        ...data,
-        redirect: false,
+      await registerUser({
+        email: data.email,
+        fullName: data.fullName,
+        password: data.password,
       });
-
-      if (!resp?.ok) {
-        throw new Error("Register error");
-      }
 
       onClose?.();
 
-      toast.success("Register success", {
+      toast.success("Register success. Verify you email", {
         icon: "🚀",
       });
     } catch (error) {
