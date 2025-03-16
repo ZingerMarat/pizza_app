@@ -10,6 +10,9 @@ interface Props {
   className?: string;
 }
 
+const DEFAULT_MIN_PRICE = 0;
+const DEFAULT_MAX_PRICE = 100;
+
 export const Filters: React.FC<Props> = ({ className }) => {
   const { ingredients, loading } = useIngredients();
   const filters = useFilters();
@@ -64,7 +67,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
             max={filters.prices.priceTo}
             value={String(filters.prices.priceFrom)}
             onChange={(e) => {
-              filters.setPrices("priceFrom", Number(e.target.value));
+              filters.setPrices("priceFrom", Number(e.target.value) < DEFAULT_MIN_PRICE ? DEFAULT_MIN_PRICE : Number(e.target.value));
             }}
           />
           <Input
@@ -75,7 +78,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
             max={100}
             value={String(filters.prices.priceTo)}
             onChange={(e) => {
-              filters.setPrices("priceTo", Number(e.target.value));
+              filters.setPrices("priceTo", Number(e.target.value) > DEFAULT_MAX_PRICE ? DEFAULT_MAX_PRICE : Number(e.target.value));
             }}
           />
         </div>
