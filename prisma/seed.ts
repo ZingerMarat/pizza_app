@@ -172,21 +172,26 @@ async function up(){
 
         await prisma.product.createMany({
             data: [
-                {
-                  name: 'Omelette with Ham and Mushrooms',
-                  imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EE7970321044479C1D1085457A36EB.webp',
-                  categoryId: 2,
-                },
-                {
-                  name: 'Omelette with Pepperoni',
-                  imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EE94ECF33B0C46BA410DEC1B1DD6F8.webp',
-                  categoryId: 2,
-                },
-                {
-                  name: 'Coffee Latte',
-                  imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EE7D61B0C26A3F85D97A78FEEE00AD.webp',
-                  categoryId: 2,
-                },
+              {
+                name: '3 Pizzas 25cm',
+                imageUrl: 'https://media.dodostatic.net/image/r:1875x1875/0195960cdb9079b38dd908001994d5dc.avif',
+                categoryId: 2,
+            },
+            {
+                name: '3 Pizzas 35cm',
+                imageUrl: 'https://media.dodostatic.net/image/r:1875x1875/01959610e6cf7839af86f0043e12f829.avif',
+                categoryId: 2,
+            },
+            {
+                name: '2 Desserts',
+                imageUrl: 'https://media.dodostatic.net/image/r:1875x1875/01959616b0d473cc86f6a2ad19bb5a87.avif',
+                categoryId: 2,
+            },
+            {
+                name: '2 Sauces',
+                imageUrl: 'https://media.dodostatic.net/image/r:1875x1875/01959618077b7889a6837ec69a751b97.avif',
+                categoryId: 2,
+            },
                 {
                   name: 'Denwich with Ham and Cheese',
                   imageUrl: 'https://media.dodostatic.net/image/r:292x292/11EE796FF0059B799A17F57A9E64C725.webp',
@@ -296,9 +301,45 @@ async function up(){
             },
           });
 
+          const pizza4 = await prisma.product.create({
+            data: {
+              name: 'Burger-Pizza',
+              imageUrl:'https://media.dodostatic.net/image/r:1875x1875/11ee7d6169f149548af85880d7f1e053.webp',
+              categoryId: 1,
+              ingredients: {
+                connect: _ingredients.slice(0, 5),
+              },
+            },
+          });
+
+          const pizza5 = await prisma.product.create({
+            data: {
+              name: 'Meat Pizza',
+              imageUrl:'https://media.dodostatic.net/image/r:1875x1875/11ee7d61095e56e6bbc9d410f89df983.webp'
+                ,
+              categoryId: 1,
+              ingredients: {
+                connect: _ingredients.slice(5, 10),
+              },
+            },
+          });
+
+          const pizza6 = await prisma.product.create({
+            data: {
+              name: 'Hawaiian Pizza',
+              imageUrl:'https://media.dodostatic.net/image/r:1875x1875/11ee7d617ef504b8b95c614b0eeaaafb.webp'
+                ,
+              categoryId: 1,
+              ingredients: {
+                connect: _ingredients.slice(10, 40),
+              },
+            },
+          });
+
+
           await prisma.productItem.createMany({
             data: [
-                            // pizza "Pepperoni Fresh"
+              // pizza "Pepperoni Fresh"
               generateProductItem({ productId: pizza1.id, pizzaType: 1, size: 20 }),
               generateProductItem({ productId: pizza1.id, pizzaType: 1, size: 30 }),
               generateProductItem({ productId: pizza1.id, pizzaType: 1, size: 40 }),
@@ -321,6 +362,30 @@ async function up(){
               generateProductItem({ productId: pizza3.id, pizzaType: 2, size: 20 }),
               generateProductItem({ productId: pizza3.id, pizzaType: 2, size: 30 }),
               generateProductItem({ productId: pizza3.id, pizzaType: 2, size: 40 }),
+
+              // pizza "Burger-Pizza"
+              generateProductItem({ productId: pizza4.id, pizzaType: 1, size: 20 }),
+              generateProductItem({ productId: pizza4.id, pizzaType: 1, size: 30 }),
+              generateProductItem({ productId: pizza4.id, pizzaType: 1, size: 40 }),
+              generateProductItem({ productId: pizza4.id, pizzaType: 2, size: 20 }),
+              generateProductItem({ productId: pizza4.id, pizzaType: 2, size: 30 }),
+              generateProductItem({ productId: pizza4.id, pizzaType: 2, size: 40 }),
+
+              // pizza "Meat Pizza"
+              generateProductItem({ productId: pizza5.id, pizzaType: 1, size: 20 }),
+              generateProductItem({ productId: pizza5.id, pizzaType: 1, size: 30 }),
+              generateProductItem({ productId: pizza5.id, pizzaType: 1, size: 40 }),
+              generateProductItem({ productId: pizza5.id, pizzaType: 2, size: 20 }),
+              generateProductItem({ productId: pizza5.id, pizzaType: 2, size: 30 }),
+              generateProductItem({ productId: pizza5.id, pizzaType: 2, size: 40 }),
+
+              // pizza "Hawaiian Pizza"
+              generateProductItem({ productId: pizza6.id, pizzaType: 1, size: 20 }),
+              generateProductItem({ productId: pizza6.id, pizzaType: 1, size: 30 }),
+              generateProductItem({ productId: pizza6.id, pizzaType: 1, size: 40 }),
+              generateProductItem({ productId: pizza6.id, pizzaType: 2, size: 20 }),
+              generateProductItem({ productId: pizza6.id, pizzaType: 2, size: 30 }),
+              generateProductItem({ productId: pizza6.id, pizzaType: 2, size: 40 }),
               
         
               // other
