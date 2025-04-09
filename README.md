@@ -22,7 +22,7 @@ A high-performance web application for ordering pizza, built with **Next.js 14**
 - Implementing **Server Actions**, **Group Routes**, and **Parallel Routes**  
 - Managing state globally with **Zustand**  
 - Form validation using **React Hook Form + Zod**  
-- Integration with third-party services like **Resend**, **react-hot-toast**, and **react-insta-stories**  
+- Integration with third-party services like **Resend** and **react-hot-toast** 
 - Building reusable components and improving UI/UX with **ShadCN + TailwindCSS**  
 - Optimizing database queries and improving performance  
 
@@ -38,7 +38,7 @@ A high-performance web application for ordering pizza, built with **Next.js 14**
 | Authentication      | NextAuth (Email & GitHub)          |
 | Emails              | Resend                             |
 | Database            | PostgreSQL + Prisma ORM            |
-| UI Enhancements     | react-hot-toast, nextjs-toploader, react-insta-stories, lucide-react |
+| UI Enhancements     | react-hot-toast, nextjs-toploader, lucide-react |
 
 ## 📸 Screenshots
 
