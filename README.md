@@ -4,7 +4,7 @@ A high-performance web application for ordering pizza, built with **Next.js 14**
 
 ## 🔗 Live Demo
 
-👉 [Check out the live app here](https://pizza-app.vercel.app)
+👉 [Check out the live app here](https://pizza-app-pi-nine.vercel.app/)
 
 ## 🔥 Key Features
 
