@@ -2,6 +2,10 @@
 
 A high-performance web application for ordering pizza, built with **Next.js 14**, **TypeScript**, and **TailwindCSS**. It features a modern, interactive UI with product filtering, user authentication, shopping cart functionality, and a complete checkout process.
 
+## 🔗 Live Demo
+
+👉 [Check out the live app here](https://pizza-app.vercel.app)
+
 ## 🔥 Key Features
 
 - ✅ **Product Filtering** — Server-side filtering with URL parameter support  
